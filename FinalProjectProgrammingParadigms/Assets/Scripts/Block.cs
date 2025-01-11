@@ -13,7 +13,6 @@ public enum BlockType
 
 public class Block : MonoBehaviour
 {
-
     [SerializeField] private BlockType blockType;
     [SerializeField] private bool hasSlope;
 
@@ -22,7 +21,6 @@ public class Block : MonoBehaviour
 
     public BlockType BlockType => blockType;
     public bool HasSlope => hasSlope;
-
 
     private List<GameObject> diamondList = new List<GameObject>();
     private bool areDiamondsReferenced;
@@ -71,13 +69,33 @@ public class Block : MonoBehaviour
         }
     }
 
-
     private void SelectTrain()
     {
+        if (trains == null || trains.Length == 0)
+        {
+            return;
+        }
 
         int index = Random.Range(0, trains.Length);
         trains[index].gameObject.SetActive(true);
         selectedTrain = trains[index];
+
+        ResetTrainPosition(selectedTrain);
+    }
+
+
+    private void ResetTrainPosition(Train train)
+    {
+
+        float[] xPositions = { -2.32f, -5.28f, 0.76f }; 
+
+        int trainIndex = System.Array.IndexOf(trains, train);
+
+        if (trainIndex != -1)
+        {
+
+            train.transform.position = new Vector3(xPositions[trainIndex], 0.1f, 56.84f);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -91,5 +109,4 @@ public class Block : MonoBehaviour
             }
         }
     }
-
 }

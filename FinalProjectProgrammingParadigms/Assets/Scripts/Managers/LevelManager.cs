@@ -135,7 +135,6 @@ public class LevelManager : MonoBehaviour
     private Vector3 NewBlockPosition(float length)
     {
         Vector3 newPosition = lastBlock.transform.position + Vector3.forward * length;
-        Debug.Log($"New Position: {newPosition}, Length: {length}, BlockType: {lastBlock.BlockType}");
         return newPosition;
     }
     private Block GetInstanceFromPooler(List<Block> list)

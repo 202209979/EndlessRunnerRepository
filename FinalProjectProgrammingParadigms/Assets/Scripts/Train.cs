@@ -14,7 +14,8 @@ public class Train : MonoBehaviour
             transform.Translate(Vector3.forward * -speed * Time.deltaTime);
             if (transform.position.z + 40 < Player.transform.position.z)
             {
-                CanMove = false;             
+                CanMove = false;
+                gameObject.SetActive(false);
             }
         }
     }

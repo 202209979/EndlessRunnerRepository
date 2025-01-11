@@ -88,7 +88,7 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.S))
             {
-                verticalPosition -= jumpValue;
+                verticalPosition -= 2*jumpValue;
                 StartSlide();
             }
         }
