@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class Multiplier : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private float value;
+    [SerializeField] private float duration;
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        
+        if (other.CompareTag("Player"))
+        {
+            GameManager.Instance.MultiplierValue = value;
+            GameManager.Instance.StartMultiplierCount(duration);
+            gameObject.SetActive(false);
+        }
     }
 }

@@ -20,13 +20,13 @@ public class GameManager : Singleton<GameManager>
     {
         get
         {
-            return (int) distanceRun + ObtainedDiamonds * (int) scoreMultiplier;
+            return (int)distanceRun + ObtainedDiamonds * (int)scoreMultiplier;
         }
     }
 
     public float MultiplierValue { get; set; }
     public GameStates CurrentState { get; set; }
-    public int ObtainedDiamonds { get;set; }
+    public int ObtainedDiamonds { get; set; }
 
     private void Start()
     {
@@ -53,5 +53,23 @@ public class GameManager : Singleton<GameManager>
         {
             CurrentState = newState;
         }
+    }
+
+    private Coroutine multiplierCoroutine;
+
+    public void StartMultiplierCount(float time)
+    {
+        if (multiplierCoroutine != null)
+        {
+            StopCoroutine(multiplierCoroutine);
+        }
+        multiplierCoroutine = StartCoroutine(COMultiplierCount(time));
+    }
+    private IEnumerator COMultiplierCount(float time)
+    {
+        yield return new WaitForSeconds(time);
+        MultiplierValue = 1;
+        multiplierCoroutine = null;
+
     }
 }
