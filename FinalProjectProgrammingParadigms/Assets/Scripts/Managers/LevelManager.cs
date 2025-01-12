@@ -120,6 +120,7 @@ public class LevelManager : MonoBehaviour
                     break;
                 case BlockType.Trains:
                     newBlock = GetInstanceFromPooler(trainBlocks);
+
                     break;
             }
         }
@@ -142,8 +143,8 @@ public class LevelManager : MonoBehaviour
         int randomBlock = Random.Range(0, list.Count);
         string blockName = list[randomBlock].name;
         GameObject instance = pooler.GetInstanceFromPooler(blockName);
-        instance.transform.position = Vector3.zero; // Resetea posición
-        instance.transform.rotation = Quaternion.identity; // Resetea rotación
+        instance.transform.position = Vector3.zero; 
+        instance.transform.rotation = Quaternion.identity;
         instance.SetActive(true);
         Block block = instance.GetComponent<Block>();
         return block;
