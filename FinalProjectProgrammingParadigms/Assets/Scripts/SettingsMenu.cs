@@ -1,23 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class SettingsMenu : MonoBehaviour
 {
-    [SerializeField] private AudioMixer audioMixer;
-    public void FullScreen(bool fullScreen)
+    [SerializeField] private Slider volumeSlider;
+
+    private void Start()
     {
-        Screen.fullScreen = fullScreen;
+        if (volumeSlider == null)
+        {
+            Debug.LogError("Volume Slider is not assigned in the Inspector!");
+            return; // Evitar continuar si el Slider no está asignado
+        }
+        float savedVolume = PlayerPrefs.GetFloat("Volume", 0.5f);
+        volumeSlider.value = savedVolume;
+        SoundManager.Instance.SetVolume(savedVolume);
+
+        volumeSlider.onValueChanged.AddListener(UpdateVolume);
     }
 
-    public void ChangeVolume(float volume)
-    { 
-        audioMixer.SetFloat("Volume", volume);
-    }
-
-    public void ChangeQuality(int index)
+    private void UpdateVolume(float value)
     {
-        QualitySettings.SetQualityLevel(index);
+        SoundManager.Instance.SetVolume(value);
+        PlayerPrefs.SetFloat("Volume", value);
+        PlayerPrefs.Save();
     }
 }
+
